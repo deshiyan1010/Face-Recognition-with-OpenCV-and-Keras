@@ -1,8 +1,9 @@
 import cv2
 import numpy as np 
-def detect(img,face_cascade_path = r'D:\Vinayak\Face Rec Flask\xmls\lbpcascade_frontalface.xml'):
+import os
+def detect(img,face_cascade_path = r'/xmls/lbpcascade_frontalface.xml'):
     
-    face_cascade = cv2.CascadeClassifier(face_cascade_path)
+    face_cascade = cv2.CascadeClassifier(os.getcwd()+face_cascade_path)
     #gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     try:
         faces = face_cascade.detectMultiScale(img, 1.3, 5)

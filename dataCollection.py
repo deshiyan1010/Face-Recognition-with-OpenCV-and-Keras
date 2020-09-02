@@ -1,17 +1,21 @@
 import cv2
 import numpy as np 
-
-def collect(face_cascade_path = r'D:\Vinayak\Face Rec Flask\xmls\lbpcascade_frontalface.xml'):
+import os
+def collect(face_cascade_path = r'/xmls/lbpcascade_frontalface.xml'):
     
-    face_cascade = cv2.CascadeClassifier(face_cascade_path)
-    cap = cv2. VideoCapture(0)
+    print(os.getcwd()+face_cascade_path)
+    face_cascade = cv2.CascadeClassifier(os.getcwd()+face_cascade_path)
+    cap = cv2.VideoCapture(0)
     data = []
     label = []
     name = []
     labelizer = -1
     counter = 1
     while True:
+
         _,img = cap.read()
+        # cv2.imshow("img",img)
+        # cv2.waitKey(0)
         gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
         faces = face_cascade.detectMultiScale(gray, 1.3, 5)
@@ -21,8 +25,8 @@ def collect(face_cascade_path = r'D:\Vinayak\Face Rec Flask\xmls\lbpcascade_fron
         try:
             x,y,w,h = faces[0]
             cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
-
-            cv2.imshow("frame",img)
+            img0 = cv2.resize(img,(400,300))
+            cv2.imshow("frame",img0)
             
             if k==ord("o"):
                 data.append(gray[y:y+h,x:x+w])
@@ -50,7 +54,8 @@ def collect(face_cascade_path = r'D:\Vinayak\Face Rec Flask\xmls\lbpcascade_fron
             
 
         except Exception as e:
-            cv2.imshow("frame",img)
+            img0 = cv2.resize(img,(400,300))
+            cv2.imshow("frame",img0)
 
         
         if k==27:

@@ -4,8 +4,15 @@ import tensorflow as tf
 from tensorflow.keras.layers import Dense,Conv2D,MaxPooling2D,Flatten,Activation
 from tensorflow.keras.models import Sequential
 
-def train(face = np.load('face.npy',allow_pickle=True),label = np.load('label.npy',allow_pickle=True)):
+def train(face=None,label=None):
 
+    if face is None:
+        face = np.load('face.npy',allow_pickle=True)
+
+    if label is None:
+        label = np.load('label.npy',allow_pickle=True)
+
+        
     for i,img in enumerate(face):  
         face[i]=cv2.resize(img,(70,70))
 
@@ -27,9 +34,9 @@ def train(face = np.load('face.npy',allow_pickle=True),label = np.load('label.np
 
     model.add(Flatten())  
 
-    model.add(Dense(64))
+    model.add(Dense(200))
 
-    model.add(Dense(3))
+    model.add(Dense(50))
     model.add(Activation('softmax'))
 
     tf.keras.backend.set_floatx('float64')

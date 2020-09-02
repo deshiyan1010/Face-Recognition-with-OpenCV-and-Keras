@@ -32,4 +32,4 @@ def predict(img,name_lst):
     
     name = label_name(np.argmax(predict),name_lst) 
     
-    return name
+    return name,predict
